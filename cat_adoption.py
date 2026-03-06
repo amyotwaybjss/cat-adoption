@@ -6,24 +6,26 @@ from jinja2 import Environment, FileSystemLoader
 import openpyxl as xl
 import pandas as pd
 
-image_location = 'images/'
-import_file = 'cat database.xlsx'
+image_location = '../images/'
+import_file = 'cat_database.xlsx'
+output_file_location = 'output/'
 
 cat_database = pd.ExcelFile(import_file)
 cat_sheet = cat_database.parse(cat_database.sheet_names[0])
 cats_dict = cat_sheet.T.to_dict()
 cats_list = list(cats_dict.values())
 
-print(cats_list)
+environment = Environment(loader=FileSystemLoader('templates/'))
+template = environment.get_template('cat_page.html')
 
-# cat_database = xl.load_workbook('cat database.xlsx')
-# cat_sheet = cat_database['Sheet1']
+for cat in cats_list:
+    filename = f'page_{cat['Name']}.html'
+    output_file = output_file_location + filename
 
-
-# data = cat_sheet.values
-# # Get first line in file as header line
-# columns = next(data)[0:]
-#
-# df = pd.DataFrame(data, columns=columns)
-#
-# print(df.head(2))
+    content = template.render(
+        cat,
+        image_location=image_location,
+    )
+    with open(output_file, mode='w') as page:
+        page.write(content)
+        print(f'Written to {output_file}')

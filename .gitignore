@@ -5,3 +5,4 @@ images/
 .DS_Store
 *.xlsx
 archive/
+output/
