@@ -25,8 +25,8 @@ environment = Environment(loader=FileSystemLoader('templates/'))
 template = environment.get_template('cat_page.html')
 
 for cat in cats_list:
-    filename = f'page_{cat['Name']}.html'
-    # TODO: cat name needs sanitising (lowercase, spaces replaced with _ for saving)
+    clean_name = cat['Name'].lower().replace(' ', '_')
+    filename = f'page_{clean_name}.html'
     output_file = output_file_location + filename
     content = template.render(
         cat,
