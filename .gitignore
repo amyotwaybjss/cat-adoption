@@ -6,3 +6,4 @@ images/
 *.xlsx
 archive/
 output/
+__pycache__/
