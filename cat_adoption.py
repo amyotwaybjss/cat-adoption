@@ -3,7 +3,6 @@
 # User click through to page with full picture of cat and other details
 
 from jinja2 import Environment, FileSystemLoader
-import openpyxl as xl
 import pandas as pd
 
 image_location = '../images/'
@@ -27,6 +26,7 @@ template = environment.get_template('cat_page.html')
 
 for cat in cats_list:
     filename = f'page_{cat['Name']}.html'
+    # TODO: cat name needs sanitising (lowercase, spaces replaced with _ for saving)
     output_file = output_file_location + filename
     content = template.render(
         cat,
@@ -36,3 +36,4 @@ for cat in cats_list:
     with open(output_file, mode='w') as page:
         page.write(content)
         print(f'Written to {output_file}')
+    # TODO: save index page
