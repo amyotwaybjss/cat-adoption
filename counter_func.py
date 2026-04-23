@@ -26,10 +26,3 @@ def rows_and_cols(count: int, desired_cols: Union[int, list]):
     needed_rows = num_array//needed_cols
 
     return {"records": count, "cells": num_array, "columns": needed_cols, "rows": needed_rows, "offset": offset}
-
-checked_numbers = [3, 2]
-for num in range(0, 201):
-    x = rows_and_cols(num, checked_numbers)
-    print(x)
-
-

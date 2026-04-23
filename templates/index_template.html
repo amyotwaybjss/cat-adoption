@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>Adopt a Cat!</title>
+  </head>
+  <body>
+    <table style="width:70%" align="center" border="1">
+        <tr align="center">
+            {% for cat in cats %}
+                <td>
+                    <b>{{ Name }}</b><br><img src="{{ image_location }}{{ Image }}" alt="{{ Name }}" height="100"><br>{{ Gender }}/{{ Age }}<br>{{ Breed }}
+                </td>
+            {% endfor %}
+        </tr>
+    </table>
+  </body>
+</html>
