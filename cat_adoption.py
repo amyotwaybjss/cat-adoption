@@ -1,7 +1,3 @@
-# Template needs to count number of cats and split into groups of three (can adjust later)
-# Fill out cat name with coloured hearts either side, picture, then info on name, gender, age, breed and a link to click.
-# User click through to page with full picture of cat and other details
-
 from jinja2 import Environment, FileSystemLoader
 import pandas as pd
 
@@ -22,18 +18,27 @@ cats_dict = cat_sheet.T.to_dict()
 cats_list = list(cats_dict.values())
 
 environment = Environment(loader=FileSystemLoader('templates/'))
-template = environment.get_template('cat_page.html')
+template_homepage = environment.get_template('index_template.html')
+template_individual = environment.get_template('cat_page.html')
 
 for cat in cats_list:
     clean_name = cat['Name'].lower().replace(' ', '_')
     filename = f'page_{clean_name}.html'
     output_file = output_file_location + filename
-    content = template.render(
+    content = template_individual.render(
         cat,
-        image_location=image_location,
+        image_location = image_location,
         colour_emoji = cat_colour[cat['Colour'].lower()],
     )
     with open(output_file, mode='w') as page:
         page.write(content)
         print(f'Written to {output_file}')
-    # TODO: save index page
+
+index_output = output_file_location + 'index.html'
+context = {
+    "cats_list": cats_list,
+    "image_location": image_location,
+}
+with open(index_output, mode='w') as index:
+    index.write(template_homepage.render(context))
+    print(f'Written to {index_output}')
