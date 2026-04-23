@@ -1,38 +1,35 @@
-# cats_list = ['A', 'B', 'C', 'D', 'E','F','G','H','I','J','K','L']
-cats_list = ['A', 'B']
-# fix 2/3 case
-checked_numbers = [3, 2]
+from typing import Union
 
-# count = len(cats_list)
-for num in range(0, 201):
-    count = num
+def rows_and_cols(count: int, desired_cols: Union[int, list]):
 
-    response = []
+    count = abs(count)
+    desired_cols = desired_cols if isinstance(desired_cols, list) else [desired_cols]
+
     potential_cols = []
     offset_flag = []
 
-    if count < 1:
-        response.append(f'{count} is less than than 1.')
-        potential_cols.append(2)
-        offset_flag.append(False)
-    else:
-        for number in checked_numbers:
-            if count % number == 0:
-                response.append(f'{count} is divisible by {number}.')
-                potential_cols.append(number)
-                offset_flag.append(False)
-            elif (count+1) % number == 0:
-                response.append(f'{count}+1 is divisible by {number}.')
-                potential_cols.append(number)
-                offset_flag.append(True)
-        # result = [i, response, response[0], potential_cols, potential_cols[0], offset_flag, offset_flag[0]]
-    result = [num, response[0], potential_cols[0], offset_flag[0]]
+    for number in desired_cols:
+        number = abs(number)
+        if count == 0 or number == 0:
+            potential_cols.append(1)
+            offset_flag.append(True)
+        elif count % number == 0:
+            potential_cols.append(number)
+            offset_flag.append(False)
+        elif (count+1) % number == 0:
+            potential_cols.append(number)
+            offset_flag.append(True)
 
-    num_array = num if offset_flag[0] == False else num+1
+    offset = offset_flag[0]
+    num_array = count if offset == False else count+1
+    needed_cols = potential_cols[0]
+    needed_rows = num_array//needed_cols
 
-    print(result)
-    print(f'{num_array} records')
-    print(f'{potential_cols[0]} Columns')
-    print(f'{num_array//potential_cols[0]} Rows')
-    # potential_cols[0]
+    return {"records": count, "cells": num_array, "columns": needed_cols, "rows": needed_rows, "offset": offset}
+
+checked_numbers = [3, 2]
+for num in range(0, 201):
+    x = rows_and_cols(num, checked_numbers)
+    print(x)
+
 
