@@ -41,8 +41,8 @@ table_width = 0.8
 col_width = table_width/cats_count
 
 context = {
-    "table_width": table_width,
-    "col_width": col_width,
+    # "table_width": table_width,
+    # "col_width": col_width,
     "cats_list": cats_list,
     "image_location": image_location,
 }
