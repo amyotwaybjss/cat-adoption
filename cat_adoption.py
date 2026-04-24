@@ -11,6 +11,8 @@ cat_colour = {
     "grey" : "🩶",
     "white" : "🤍"
 }
+# Can we rank and order cats by either name or colour? Can we change something about the background depending on colour?
+# What about greying out the picture and adding a note if the cat is already adopted? (X is on his/her way to his/her forever home!)
 
 cat_database = pd.ExcelFile(import_file)
 cat_sheet = cat_database.parse(cat_database.sheet_names[0])
