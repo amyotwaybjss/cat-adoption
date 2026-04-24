@@ -4,13 +4,13 @@
     <title>Adopt a Cat!</title>
   </head>
   <body>
-    <table style="width:{{table_width}}" align="center" border="1">
+    <table align="center" border="1">
         <tr align="center">
             {% for cat in cats_list %}
-                <td style="width:{{col_width}}">
+                <td>
                     <b>{{ cat.Name }}</b>
                     <br>
-                    <img src="{{ image_location }}{{ cat.Image }}" alt="{{ cat.Name }}" height="200" width="200">
+                    <img src="{{ image_location }}{{ cat.Icon }}" alt="{{ cat.Name }}" height="250" width="250">
                     <br>
                     <a href="{{ cat.Url }}">Click here!</a>
                 </td>

@@ -1,8 +1,8 @@
 from typing import Union
 
-def rows_and_cols(count: int, desired_cols: Union[int, list]):
+def rows_and_cols(test_list: list, desired_cols: Union[int, list], offset_format):
 
-    count = abs(count)
+    count = len(test_list)
     desired_cols = desired_cols if isinstance(desired_cols, list) else [desired_cols]
 
     potential_cols = []
@@ -25,4 +25,12 @@ def rows_and_cols(count: int, desired_cols: Union[int, list]):
     needed_cols = potential_cols[0]
     needed_rows = num_array//needed_cols
 
-    return {"records": count, "cells": num_array, "columns": needed_cols, "rows": needed_rows, "offset": offset}
+    grid = []
+
+    for i in range(0, count, needed_cols):
+        grid.append(test_list[i:i+needed_cols])
+
+    if offset:
+        grid[-1].append(offset_format)
+
+    return {"records": count, "cells": num_array, "columns": needed_cols, "rows": needed_rows, "offset": offset, "grid": grid}
