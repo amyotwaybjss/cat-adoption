@@ -6,10 +6,10 @@ import_file = 'cat_database.xlsx'
 output_file_location = 'output/'
 
 cat_colour = {
-    "orange" : "🧡",
-    "black" : "🖤",
-    "grey" : "🩶",
-    "white" : "🤍"
+    "orange" : ["🧡","#FFB86A"],
+    "black" : ["🖤","#A6A09B"],
+    "grey" : ["🩶","#E7E5E4"],
+    "white" : ["🤍","#FAFAF9"]
 }
 # Can we rank and order cats by either name or colour? Can we change something about the background depending on colour?
 # What about greying out the picture and adding a note if the cat is already adopted? (X is on his/her way to his/her forever home!)
@@ -29,10 +29,10 @@ for cat in cats_list:
     filename = f'page_{clean_name}.html'
     output_file = output_file_location + filename
     cat["Url"] = filename
+    cat["colour_info"] = cat_colour[cat['Colour'].lower()]
     content = template_individual.render(
         cat,
         image_location = image_location,
-        colour_emoji = cat_colour[cat['Colour'].lower()],
     )
     with open(output_file, mode='w') as page:
         page.write(content)
@@ -43,8 +43,6 @@ table_width = 0.8
 col_width = table_width/cats_count
 
 context = {
-    # "table_width": table_width,
-    # "col_width": col_width,
     "cats_list": cats_list,
     "image_location": image_location,
 }

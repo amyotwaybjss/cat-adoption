@@ -7,12 +7,16 @@
     <table align="center" border="1">
         <tr align="center">
             {% for cat in cats_list %}
-                <td>
+                <td bgcolor="{{ cat.colour_info[1] }}">
                     <b>{{ cat.Name }}</b>
                     <br>
-                    <img src="{{ image_location }}{{ cat.Icon }}" alt="{{ cat.Name }}" height="250" width="250">
-                    <br>
-                    <a href="{{ cat.Url }}">Click here!</a>
+                    <hr>
+                    <a href="{{ cat.Url }}">
+                        <img src="{{ image_location }}{{ cat.Icon }}" alt="{{ cat.Name }}" height="250" width="250">
+                        <br>
+                        Click here!
+                        {{ background_colour }}
+                    </a>
                 </td>
             {% endfor %}
         </tr>
