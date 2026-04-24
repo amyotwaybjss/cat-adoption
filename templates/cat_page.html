@@ -6,11 +6,20 @@
 </head>
 <body>
 
-{{ colour_info[0] }} {{ Name }} is available for adoption from {{ Shelter }}! {{ colour_info[0] }}
+{{ colour_info[0] }}
+{{ Name }}
+{% if Adopted == True %}
+    is on their way to their forever home.
+{% else %}
+    is available for adoption from {{ Shelter }}!
+{% endif %}
+{{ colour_info[0] }}
+
 <br>
 <img src="{{ image_location }}{{ Image }}" alt="{{ Name }}" height="300">
 <br>
 {{ Breed }} / {{ Gender }} / Age {{ Age }}:<br>{{ Description }}
+<br>
 <br>
 <a href="index.html">Go back?</a>
 
