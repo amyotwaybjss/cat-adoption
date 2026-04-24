@@ -16,6 +16,7 @@ cat_database = pd.ExcelFile(import_file)
 cat_sheet = cat_database.parse(cat_database.sheet_names[0])
 cats_dict = cat_sheet.T.to_dict()
 cats_list = list(cats_dict.values())
+cats_count = len(cats_list)
 
 environment = Environment(loader=FileSystemLoader('templates/'))
 template_homepage = environment.get_template('index_template.html')
@@ -25,6 +26,7 @@ for cat in cats_list:
     clean_name = cat['Name'].lower().replace(' ', '_')
     filename = f'page_{clean_name}.html'
     output_file = output_file_location + filename
+    cat["Url"] = filename
     content = template_individual.render(
         cat,
         image_location = image_location,
@@ -35,7 +37,12 @@ for cat in cats_list:
         print(f'Written to {output_file}')
 
 index_output = output_file_location + 'index.html'
+table_width = 0.8
+col_width = table_width/cats_count
+
 context = {
+    "table_width": table_width,
+    "col_width": col_width,
     "cats_list": cats_list,
     "image_location": image_location,
 }
